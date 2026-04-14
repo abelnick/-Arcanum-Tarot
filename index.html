@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arcanum Tarot — Персональные расклады онлайн</title>
+<meta name="description" content="Персональные расклады Таро от мастера с 15-летним опытом. Карта дня бесплатно.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Raleway',sans-serif;min-height:100vh;background:radial-gradient(ellipse at 50% 0%,hsl(270,30%,12%) 0%,hsl(260,25%,5%) 70%);color:hsl(45,30%,85%);overflow-x:hidden}
+
+.stars-bg{position:fixed;inset:0;z-index:0;background:radial-gradient(1.5px 1.5px at 10% 20%,rgba(255,255,255,.5),transparent),radial-gradient(1px 1px at 30% 70%,rgba(255,255,255,.3),transparent),radial-gradient(2px 2px at 50% 10%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 70% 50%,rgba(255,255,255,.4),transparent),radial-gradient(1.5px 1.5px at 90% 80%,rgba(255,255,255,.5),transparent),radial-gradient(1px 1px at 25% 90%,rgba(255,255,255,.3),transparent);animation:twinkle 5s ease-in-out infinite alternate}
+@keyframes twinkle{0%{opacity:.4}100%{opacity:1}}
+
+.glow{position:fixed;border-radius:50%;filter:blur(120px);z-index:0}
+.g1{width:500px;height:500px;background:hsl(270,40%,25%);top:-150px;right:-100px;opacity:.2;animation:breathe 12s ease-in-out infinite}
+.g2{width:400px;height:400px;background:hsl(45,50%,20%);bottom:-100px;left:-50px;opacity:.15;animation:breathe 12s ease-in-out infinite 4s}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.15}50%{transform:scale(1.2);opacity:.3}}
+
+.content{position:relative;z-index:1}
+
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 2.5rem;border-bottom:1px solid hsla(270,20%,15%,.5);backdrop-filter:blur(10px)}
+.logo{font-family:'Cinzel',serif;font-size:1.3rem;font-weight:600;color:hsl(45,60%,70%);letter-spacing:.15em}
+.nav-r a{color:hsl(270,15%,50%);text-decoration:none;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-left:2rem;transition:color .3s}
+.nav-r a:hover{color:hsl(45,60%,70%)}
+
+.hero{text-align:center;padding:6rem 2rem 4rem;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem 1rem;border-radius:999px;border:1px solid hsla(45,50%,40%,.3);background:hsla(45,50%,40%,.08);color:hsl(45,60%,65%);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2rem;animation:fadeUp .8s ease-out}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:hsl(120,60%,50%);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(2rem,6vw,4rem);font-weight:600;line-height:1.15;letter-spacing:.03em;margin-bottom:1rem;animation:fadeUp .8s ease-out .1s both}
+.grad{background:linear-gradient(135deg,hsl(45,70%,65%),hsl(270,50%,70%),hsl(330,60%,65%));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 200%;animation:shimmer 6s ease infinite}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+.hero p{color:hsl(270,15%,55%);font-size:1rem;max-width:460px;margin:0 auto 2.5rem;line-height:1.8;font-weight:300;animation:fadeUp .8s ease-out .2s both}
+
+.cta-group{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s ease-out .3s both}
+.btn{padding:.8rem 2rem;border-radius:4px;border:none;font-family:'Cinzel',serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .35s;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.btn-gold{background:linear-gradient(135deg,hsl(45,60%,45%),hsl(35,70%,38%));color:hsl(45,30%,95%);box-shadow:0 6px 25px hsla(45,60%,25%,.4)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 35px hsla(45,60%,25%,.6)}
+.btn-ghost{background:transparent;color:hsl(45,40%,65%);border:1px solid hsl(45,30%,25%)}
+.btn-ghost:hover{background:hsla(45,30%,12%,.3);border-color:hsl(45,40%,40%)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.sec-title{font-family:'Cinzel',serif;text-align:center;font-size:1.5rem;color:hsl(45,30%,80%);letter-spacing:.1em;margin-bottom:.4rem}
+.sec-sub{text-align:center;color:hsl(270,15%,42%);font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:2.5rem}
+
+.daily{padding:4rem 2rem;text-align:center}
+.daily-area{max-width:400px;margin:0 auto}
+.draw-btn{padding:1rem 2.5rem;border-radius:4px;border:1px solid hsl(45,50%,35%);background:linear-gradient(135deg,hsl(270,25%,12%),hsl(260,20%,8%));color:hsl(45,60%,70%);font-family:'Cinzel',serif;font-size:.9rem;cursor:pointer;letter-spacing:.12em;text-transform:uppercase;transition:all .4s;position:relative;overflow:hidden}
+.draw-btn:hover{border-color:hsl(45,60%,50%);box-shadow:0 0 30px hsla(45,60%,40%,.2)}
+.draw-btn.revealing{animation:glow-pulse 1.5s ease-in-out}
+@keyframes glow-pulse{0%{box-shadow:0 0 0 hsla(45,60%,40%,0)}50%{box-shadow:0 0 40px hsla(45,60%,40%,.5)}100%{box-shadow:0 0 0 hsla(45,60%,40%,0)}}
+
+.daily-result{margin-top:2rem;animation:fadeUp .6s ease-out}
+.daily-card-display{background:linear-gradient(145deg,hsla(270,20%,12%,.9),hsl(260,25%,7%));border:1px solid hsla(45,40%,30%,.4);border-radius:8px;padding:2.5rem 2rem;position:relative;overflow:hidden}
+.daily-card-display::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,hsl(45,60%,55%),transparent)}
+.daily-card-display::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,hsl(270,50%,50%),transparent)}
+.daily-emoji{font-size:3rem;display:block;margin-bottom:.8rem}
+.daily-numeral{font-family:'Cinzel',serif;font-size:.75rem;color:hsl(270,30%,50%);letter-spacing:.2em}
+.daily-name{font-family:'Cinzel',serif;font-size:1.6rem;color:hsl(45,50%,80%);margin:.3rem 0 .8rem;letter-spacing:.05em}
+.daily-meaning{font-size:.85rem;color:hsl(45,40%,60%);margin-bottom:1rem;font-style:italic}
+.daily-advice{font-size:.9rem;color:hsl(270,12%,60%);line-height:1.7;font-weight:300}
+.daily-divider{width:40px;height:1px;background:linear-gradient(90deg,transparent,hsl(45,50%,50%),transparent);margin:1rem auto}
+
+.tarot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.2rem;max-width:1000px;margin:0 auto;padding:0 2rem 5rem}
+.tarot-card{perspective:600px;height:220px;cursor:pointer}
+.tarot-inner{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.tarot-card.flipped .tarot-inner{transform:rotateY(180deg)}
+.tarot-front,.tarot-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:8px;border:1px solid hsla(270,20%,18%,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem}
+.tarot-front{background:linear-gradient(160deg,hsl(270,25%,12%),hsl(260,20%,8%))}
+.tarot-front::before{content:'✦';font-size:2rem;color:hsl(45,50%,50%);opacity:.4}
+.tarot-front::after{content:'ARCANUM';font-family:'Cinzel',serif;font-size:.55rem;color:hsl(270,20%,35%);letter-spacing:.2em;position:absolute;bottom:1rem}
+.card-border{position:absolute;inset:6px;border:1px solid hsla(45,40%,30%,.2);border-radius:6px}
+.tarot-back{background:linear-gradient(160deg,hsl(260,20%,10%),hsl(270,25%,7%));transform:rotateY(180deg);text-align:center;gap:.3rem}
+.t-emoji{font-size:1.8rem}
+.t-num{font-family:'Cinzel',serif;font-size:.6rem;color:hsl(270,25%,45%);letter-spacing:.2em}
+.t-name{font-family:'Cinzel',serif;font-size:.85rem;color:hsl(45,45%,75%);letter-spacing:.05em}
+.t-meaning{font-size:.65rem;color:hsl(270,12%,50%);line-height:1.5;margin-top:.3rem}
+.tarot-card:hover .tarot-inner{box-shadow:0 8px 30px hsla(270,40%,15%,.3)}
+
+.offer{text-align:center;padding:4rem 2rem 5rem}
+.offer-box{max-width:550px;margin:0 auto;background:linear-gradient(145deg,hsla(270,20%,10%,.9),hsl(260,25%,6%));border:1px solid hsla(45,40%,25%,.3);border-radius:8px;padding:3rem 2.5rem;position:relative;overflow:hidden}
+.offer-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,hsl(45,60%,55%),transparent)}
+.offer-price{font-family:'Cinzel',serif;font-size:2.2rem;color:hsl(45,60%,65%);margin:.5rem 0}
+.offer-price .old{font-size:1rem;text-decoration:line-through;color:hsl(270,15%,40%);margin-right:.5rem}
+.offer-features{list-style:none;padding:0;margin:1.5rem auto;text-align:left;max-width:300px}
+.offer-features li{padding:.45rem 0;color:hsl(270,12%,55%);font-size:.85rem;border-bottom:1px solid hsla(270,20%,15%,.3)}
+.offer-features li::before{content:'✦ ';color:hsl(45,50%,55%)}
+.offer-timer{font-family:'Cinzel',serif;font-size:.75rem;color:hsl(330,50%,60%);letter-spacing:.1em;margin-top:1.5rem}
+
+.testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;max-width:900px;margin:0 auto;padding:0 2rem 5rem}
+.testi{background:hsla(270,20%,9%,.7);border:1px solid hsla(270,20%,16%,.4);border-radius:4px;padding:1.5rem}
+.testi-stars{color:hsl(45,70%,55%);font-size:.8rem;margin-bottom:.6rem;letter-spacing:.15em}
+.testi-text{font-size:.85rem;color:hsl(270,12%,55%);line-height:1.7;font-weight:300;font-style:italic;margin-bottom:.8rem}
+.testi-author{font-family:'Cinzel',serif;font-size:.7rem;color:hsl(45,30%,55%);letter-spacing:.1em}
+
+footer{text-align:center;padding:2rem;border-top:1px solid hsla(270,20%,12%,.5);color:hsl(270,10%,30%);font-size:.7rem;letter-spacing:.1em}
+
+.hidden{display:none}
+
+@media(max-width:600px){
+  nav{padding:1rem 1.2rem}
+  .nav-r a{margin-left:1rem;font-size:.7rem}
+  .hero{padding:4rem 1.5rem 3rem}
+  .tarot-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.8rem;padding:0 1rem 4rem}
+  .tarot-card{height:190px}
+  .offer-box{padding:2rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="stars-bg"></div>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+
+<div class="content">
+  <nav>
+    <div class="logo">✦ Arcanum Tarot</div>
+    <div class="nav-r">
+      <a href="#daily">Карта дня</a>
+      <a href="#cards">Арканы</a>
+      <a href="#offer">Консультация</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge">Индивидуальные расклады онлайн</div>
+    <h1>Узнай, что скрывают<br><span class="grad">карты Таро</span></h1>
+    <p>Персональные расклады от мастера с 15-летним опытом. Получите ясность, направление и ответы на ваши самые важные вопросы</p>
+    <div class="cta-group">
+      <button class="btn btn-gold" onclick="document.getElementById('offer').scrollIntoView({behavior:'smooth'})">Записаться на расклад</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('daily').scrollIntoView({behavior:'smooth'})">Карта дня бесплатно</button>
+    </div>
+  </section>
+
+  <section class="daily" id="daily">
+    <h2 class="sec-title">Карта дня</h2>
+    <p class="sec-sub">✦ Послание вселенной для вас ✦</p>
+    <div class="daily-area">
+      <button class="draw-btn" id="drawBtn" onclick="drawCard()">☽ Вытянуть карту</button>
+      <div id="dailyResult" class="hidden"></div>
+    </div>
+  </section>
+
+  <section id="cards" style="padding:4rem 0 1rem">
+    <h2 class="sec-title">Старшие Арканы</h2>
+    <p class="sec-sub">✦ Нажмите на карту, чтобы раскрыть ✦</p>
+  </section>
+
+  <div class="tarot-grid" id="tarotGrid"></div>
+
+  <section style="padding:4rem 0 1rem">
+    <h2 class="sec-title">Отзывы</h2>
+    <p class="sec-sub">✦ Что говорят клиенты ✦</p>
+  </section>
+
+  <div class="testimonials">
+    <div class="testi">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">«Расклад поразил точностью. Всё, что было сказано про отношения, сбылось в течение месяца»</p>
+      <span class="testi-author">— Анна М.</span>
+    </div>
+    <div class="testi">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">«Помогло принять важное решение в карьере. Уже через неделю получила предложение мечты»</p>
+      <span class="testi-author">— Елена К.</span>
+    </div>
+    <div class="testi">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">«Третий год обращаюсь. Каждый расклад — как разговор с мудрым другом, который видит суть»</p>
+      <span class="testi-author">— Мария Д.</span>
+    </div>
+  </div>
+
+  <section class="offer" id="offer">
+    <h2 class="sec-title">Персональный расклад</h2>
+    <p class="sec-sub">✦ Специальное предложение ✦</p>
+    <div class="offer-box">
+      <p style="color:hsl(270,12%,55%);font-size:.85rem">Полный расклад на 12 карт с детальной расшифровкой</p>
+      <div class="offer-price"><span class="old">5 000 ₽</span> 2 990 ₽</div>
+      <ul class="offer-features">
+        <li>Расклад на 12 позиций</li>
+        <li>Аудиозапись толкования (30+ мин)</li>
+        <li>Письменная расшифровка</li>
+        <li>Рекомендации и практики</li>
+        <li>Ответы на 3 дополнительных вопроса</li>
+      </ul>
+      <button class="btn btn-gold" style="width:100%;padding:1rem">Заказать расклад</button>
+      <p class="offer-timer">⏳ До конца акции осталось 2 дня</p>
+    </div>
+  </section>
+
+  <footer>✦ ARCANUM TAROT · MMXXVI · «Карты не лгут — они отражают»</footer>
+</div>
+
+<script>
+const cards=[
+  {id:0,name:'Шут',num:'0',meaning:'Новое начало, спонтанность, вера в жизнь',advice:'Доверьтесь потоку — Вселенная ведёт вас к чему-то прекрасному',img:'🃏'},
+  {id:1,name:'Маг',num:'I',meaning:'Сила воли, мастерство, проявление намерений',advice:'Всё, что вам нужно, уже в ваших руках. Действуйте!',img:'✨'},
+  {id:2,name:'Жрица',num:'II',meaning:'Интуиция, тайное знание, внутренний голос',advice:'Прислушайтесь к тишине — ответы уже внутри вас',img:'🌙'},
+  {id:3,name:'Императрица',num:'III',meaning:'Изобилие, творчество, женская энергия',advice:'Позвольте себе наслаждаться красотой жизни',img:'👑'},
+  {id:4,name:'Император',num:'IV',meaning:'Структура, власть, стабильность',advice:'Время взять ответственность и выстроить фундамент',img:'🏛️'},
+  {id:5,name:'Иерофант',num:'V',meaning:'Традиции, духовное наставничество, мудрость',advice:'Ищите учителя или станьте им для других',img:'📿'},
+  {id:6,name:'Влюблённые',num:'VI',meaning:'Выбор, гармония, союз противоположностей',advice:'Следуйте за сердцем — оно знает путь',img:'💫'},
+  {id:7,name:'Колесница',num:'VII',meaning:'Победа, движение, преодоление препятствий',advice:'Направьте свою волю — триумф неизбежен',img:'⚡'},
+  {id:8,name:'Сила',num:'VIII',meaning:'Внутренняя сила, терпение, мягкая власть',advice:'Истинная сила — в спокойствии и принятии',img:'🦁'},
+  {id:9,name:'Отшельник',num:'IX',meaning:'Поиск истины, уединение, внутренний свет',advice:'Уединитесь, чтобы найти ответы в глубине души',img:'🏔️'},
+  {id:10,name:'Колесо Судьбы',num:'X',meaning:'Цикличность, судьба, поворотный момент',advice:'Перемены на пороге — примите их с открытым сердцем',img:'☸️'},
+  {id:11,name:'Звезда',num:'XVII',meaning:'Надежда, вдохновение, духовное обновление',advice:'Вы на верном пути — свет уже близко',img:'⭐'}
+];
+
+// Render tarot grid
+const grid=document.getElementById('tarotGrid');
+cards.forEach(c=>{
+  const el=document.createElement('div');
+  el.className='tarot-card';
+  el.onclick=()=>el.classList.toggle('flipped');
+  el.innerHTML=`<div class="tarot-inner"><div class="tarot-front"><div class="card-border"></div></div><div class="tarot-back"><span class="t-emoji">${c.img}</span><span class="t-num">${c.num}</span><span class="t-name">${c.name}</span><span class="t-meaning">${c.meaning}</span></div></div>`;
+  grid.appendChild(el);
+});
+
+// Daily card
+let revealing=false;
+function drawCard(){
+  if(revealing)return;
+  revealing=true;
+  const btn=document.getElementById('drawBtn');
+  btn.textContent='✦ Карты раскрываются...';
+  btn.classList.add('revealing');
+  document.getElementById('dailyResult').classList.add('hidden');
+  setTimeout(()=>{
+    const c=cards[Math.floor(Math.random()*cards.length)];
+    document.getElementById('dailyResult').innerHTML=`<div class="daily-card-display"><span class="daily-emoji">${c.img}</span><span class="daily-numeral">${c.num}</span><h3 class="daily-name">${c.name}</h3><p class="daily-meaning">${c.meaning}</p><div class="daily-divider"></div><p class="daily-advice">«${c.advice}»</p></div>`;
+    document.getElementById('dailyResult').classList.remove('hidden');
+    btn.textContent='☽ Вытянуть карту';
+    btn.classList.remove('revealing');
+    revealing=false;
+  },1500);
+}
+</script>
+</body>
+</html>
